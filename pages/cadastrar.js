@@ -19,6 +19,8 @@ function Cadastrar() {
     const sendMeta = async event => {
         event.preventDefault()
         
+        setResponse({formSave: true})
+
         try{
             const res = await fetch('http://localhost:8080/metas', {
                 method: 'POST',
@@ -53,6 +55,9 @@ function Cadastrar() {
             <h1>Cadastrar Minha Meta</h1>
             <hr />
 
+            {response.type === 'error' ? <p>{response.message}</p> : ""}
+            {response.type === 'sucess' ? <p>{response.message}</p> : ""}
+
             <form onSubmit={sendMeta}>
                 <label>Meta </label>
                 <input type="text" name="name" id="name" 
@@ -72,7 +77,10 @@ function Cadastrar() {
                 onChange={onChangeInput}/>
                 <br />
 
+                {response.formSave ? 
+                <button type="submit" disabled>Enviando...</button> :
                 <button type="submit">Cadastrar</button>
+                }
 
             </form>
         </>
