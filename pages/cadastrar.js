@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 
+import Menu from '../components/Menu'
+
+import { Jumbotron, Container, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap'
+
 function Cadastrar() {
 
     const [meta, setMeta] = useState({
@@ -52,37 +56,55 @@ function Cadastrar() {
 
     return (
         <>
-            <h1>Cadastrar Minha Meta</h1>
-            <hr />
+            <Menu />
+            <Jumbotron fluid className="form">
+                <style>
+                    {`.form {
+                        background-color: #171941;
+                        color: #bf38ac;
+                        padding-top: 30px;
+                        padding-bottom: 150px;
+                        margin-bottom: 0rem !important;
+                    }`}
+                </style>
+                <Container>
+                    <h1 className="display-4 text-center">Cadastrar Minha Meta</h1>
+                    <hr />
 
-            {response.type === 'error' ? <p>{response.message}</p> : ""}
-            {response.type === 'sucess' ? <p>{response.message}</p> : ""}
+                    {response.type === 'error' ? <Alert color="danger">{response.message}</Alert> : ""}
+                    {response.type === 'sucess' ? <Alert color="sucess">{response.message}</Alert> : ""}
 
-            <form onSubmit={sendMeta}>
-                <label>Meta </label>
-                <input type="text" name="name" id="name" 
-                placeholder="Aprender violão" 
-                onChange={onChangeInput}/>
-                <br />
+                    <Form onSubmit={sendMeta}>
 
-                <label>Descrição </label>
-                <input type="text" name="description" id="description" 
-                placeholder="Vou aprender violão em 3 meses" 
-                onChange={onChangeInput}/>
-                <br />
+                        <FormGroup>
+                            <Label for="name">Meta </Label>
+                            <Input type="text" name="name" id="name" 
+                            placeholder="Aprender violão" 
+                            onChange={onChangeInput}/>
+                        </FormGroup>
 
-                <label>Status </label>
-                <input type="text" name="status" id="status" 
-                placeholder="Pendente" 
-                onChange={onChangeInput}/>
-                <br />
+                        <FormGroup>
+                            <Label for="description">Descrição </Label>
+                            <Input type="text" name="description" id="description" 
+                            placeholder="Vou aprender violão em 3 meses" 
+                            onChange={onChangeInput}/>
+                        </FormGroup>
 
-                {response.formSave ? 
-                <button type="submit" disabled>Enviando...</button> :
-                <button type="submit">Cadastrar</button>
-                }
+                        <FormGroup>
+                            <Label for="status">Status </Label>
+                            <Input type="text" name="status" id="status" 
+                            placeholder="Pendente" 
+                            onChange={onChangeInput}/>
+                        </FormGroup>
 
-            </form>
+                            {response.formSave ? 
+                            <Button type="submit" color="danger"disabled>Enviando...</Button> :
+                            <Button type="submit" outline color="primary">Cadastrar</Button>
+                            }
+                        
+                    </Form>
+                </Container>
+            </Jumbotron>
         </>
     )
 }
